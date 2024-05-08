@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Tool
   m_EditorClassIdentifier: Assembly-CSharp::Tool
-  title: pickaxe
-  cost: 200
-  durability: 15
-  requiredLevel: 1
+  title: 
+  cost: 0
+  durability: 0
+  requiredLevel: 0

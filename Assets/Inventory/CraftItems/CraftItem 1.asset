@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: CraftItem 1
   m_EditorClassIdentifier: Assembly-CSharp::CraftableItem
-  title: bronze
-  recipe:
-  - resource: cooper
-    quantity: 2
-  cost: 140
-  requiredLevel: 2
+  title: 
+  recipe: []
+  cost: 0
+  requiredLevel: 0

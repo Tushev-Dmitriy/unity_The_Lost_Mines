@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Mineral
   m_EditorClassIdentifier: Assembly-CSharp::Mineral
-  title: oil
-  xp: 80
-  quantity: 8
-  timeToSpawn: 40
+  title: 
+  xp: 0
+  quantity: 0
+  timeToSpawn: 0

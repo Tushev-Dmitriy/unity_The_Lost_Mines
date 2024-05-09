@@ -7,6 +7,8 @@ public class InventoryScript : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     public Resource[] itemsToPickup;
+    public Tool[] toolsToPickup;
+    public CraftableItem[] craftsToPickup;
     public GameObject fullInventory;
     public GameObject lowMoney;
 
@@ -15,9 +17,21 @@ public class InventoryScript : MonoBehaviour
     public int price = 0;
     public TMP_Text coinText;
 
-    public void PickupItem(int id)
+    public void PickupItem(int id, int type)
     {
-        result = inventoryManager.AddItem(itemsToPickup[id]);
+        switch (type)
+        {
+            case 0:
+                result = inventoryManager.AddItem(toolsToPickup[id]);
+                break;
+            case 1:
+                result = inventoryManager.AddItem(itemsToPickup[id]);
+                break;
+            case 2:
+                result = inventoryManager.AddItem(craftsToPickup[id]);
+                break;
+        }
+
         if (!result)
         {
             StartCoroutine(showFullInventory());

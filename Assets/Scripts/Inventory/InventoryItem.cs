@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector] public string title;
     [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public Resource item;
+    [HideInInspector] public Tool tool;
+    [HideInInspector] public CraftableItem craft;
     [HideInInspector] public int count = 1;
 
     public void InitialiseItem(Resource newItem)
@@ -19,6 +22,22 @@ public class InventoryItem : MonoBehaviour
         item = newItem;
         image.sprite = newItem.icon;
         title = newItem.title;
+        RefreshCount();
+    }
+
+    public void InitialiseTool(Tool newTool)
+    {
+        tool = newTool;
+        image.sprite = newTool.icon;
+        title = newTool.title;
+        RefreshCount();
+    }
+
+    public void InitialiseCraft(CraftableItem newCraft)
+    {
+        craft = newCraft;
+        image.sprite = newCraft.icon;
+        title = newCraft.title;
         RefreshCount();
     }
 

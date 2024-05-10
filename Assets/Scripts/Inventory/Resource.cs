@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class Resource: ScriptableObject
 {
+    public Object prefab;
     public Sprite icon;
     public string title;
     public int cost;

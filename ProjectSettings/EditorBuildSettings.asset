@@ -15,5 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MineScene.unity
     guid: db1e2a8e542cc7b40866a7f40bc1a228
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 25e66f6d5b6b68648a8636ea0a08f6c8,
+      type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: b84ee0f5f153c1e4984f2288c21d258d, type: 2}

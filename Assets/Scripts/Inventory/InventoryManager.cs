@@ -7,13 +7,16 @@ public class InventoryManager : MonoBehaviour
     public int maxStackItem = 64;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
-    public InventorySlot primeSlot;
+    public InventorySlot toolSlot;
+    public InventorySlot craftSlot;
     public InventorySlot deleteSlot;
     public InventoryScript inventoryScript;
 
     public GameObject firstSlot;
     public GameObject firstSlotChild;
     public GameObject secondSlotChild;
+
+    public GameObject[] tools;
 
     [HideInInspector] public string nameOfSlot;
     [HideInInspector] public bool isStackable;
@@ -81,14 +84,14 @@ public class InventoryManager : MonoBehaviour
         {
             isStackable = true;
             CraftableItem craft = item as CraftableItem;
-            InventorySlot slot = primeSlot;
+            InventorySlot slot = craftSlot;
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot != null)
             {
-                GameObject itemForCraft = primeSlot.gameObject.transform.GetChild(0).gameObject;
+                GameObject itemForCraft = craftSlot.gameObject.transform.GetChild(0).gameObject;
                 InventoryItem countOfItem = itemForCraft.GetComponent<InventoryItem>();
                 SpawnNewCraft(craft, slot);
-                GameObject craftItem = primeSlot.gameObject.transform.GetChild(1).gameObject;
+                GameObject craftItem = craftSlot.gameObject.transform.GetChild(1).gameObject;
                 craftItem.transform.GetChild(0).gameObject.SetActive(true);
                 InventoryItem countOfCraft = craftItem.GetComponent<InventoryItem>();
                 countOfCraft.count = countOfItem.count;
@@ -136,13 +139,118 @@ public class InventoryManager : MonoBehaviour
 
     public void CheckItem()
     {
-        if (primeSlot.transform.childCount > 0)
+        if (craftSlot.transform.childCount > 0)
         {
-            nameOfSlot = primeSlot.GetComponentInChildren<InventoryItem>().title;
+            nameOfSlot = craftSlot.GetComponentInChildren<InventoryItem>().title;
             switch (nameOfSlot)
             {
                 case "iron":
                     inventoryScript.PickupItem(0, 2);
+                    break;
+
+                case "copper":
+                    inventoryScript.PickupItem(1, 2);
+                    break;
+
+                case "silver":
+                    inventoryScript.PickupItem(2, 2);
+                    break;
+
+                case "gold":
+                    inventoryScript.PickupItem(3, 2);
+                    break;
+            }
+        }
+    }
+
+    public void CheckTool()
+    {
+        if (toolSlot.transform.childCount > 0)
+        {
+            nameOfSlot = toolSlot.GetComponentInChildren<InventoryItem>().title;
+            switch (nameOfSlot)
+            {
+                case "pickaxe":
+                    SetActive();
+                    tools[0].SetActive(true);
+                    break;
+
+                case "shovel":
+                    SetActive();
+                    tools[1].SetActive(true);
+                    break;
+
+                case "bucket":
+                    SetActive();
+                    tools[2].SetActive(true);
+                    break;
+
+                case "axe":
+                    SetActive();
+                    tools[3].SetActive(true);
+                    break;
+
+                case "bottle":
+                    SetActive();
+                    tools[4].SetActive(true);
+                    break;
+            }
+        }
+    }
+
+    private void SetActive()
+    {
+        for (int i = 0; i < tools.Length; i++)
+        {
+            tools[i].SetActive(false);
+        }
+    }
+
+    public void UseTool()
+    {
+        if (toolSlot.transform.childCount > 0)
+        {
+            InventoryItem primeItem = toolSlot.GetComponentInChildren<InventoryItem>();
+
+            switch (nameOfSlot)
+            {
+                case "pickaxe":
+                    primeItem.durability--;
+                    if (primeItem.durability == 0)
+                    {
+                        Destroy(primeItem.gameObject);
+                        tools[0].SetActive(false);
+                    }
+                    break;
+
+                case "shovel":
+                    primeItem.durability--;
+                    if (primeItem.durability == 0)
+                    {
+                        Destroy(primeItem.gameObject);
+                        tools[1].SetActive(false);
+                    }
+                    break;
+
+                case "bucket":
+                    primeItem.durability--;
+                    if (primeItem.durability == 0)
+                    {
+                        Destroy(primeItem.gameObject);
+                        tools[2].SetActive(false);
+                    }
+                    break;
+
+                case "axe":
+                    primeItem.durability--;
+                    if (primeItem.durability == 0)
+                    {
+                        Destroy(primeItem.gameObject);
+                        tools[3].SetActive(false);
+                    }
+                    break;
+
+                case "bottle":
                     break;
             }
         }

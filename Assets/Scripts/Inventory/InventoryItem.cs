@@ -16,6 +16,7 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector] public Tool tool;
     [HideInInspector] public CraftableItem craft;
     [HideInInspector] public int count = 1;
+    [HideInInspector] public int durability = 0;
 
     public void InitialiseItem(Resource newItem)
     {
@@ -30,6 +31,7 @@ public class InventoryItem : MonoBehaviour
         tool = newTool;
         image.sprite = newTool.icon;
         title = newTool.title;
+        durability = newTool.durability;
         RefreshCount();
     }
 

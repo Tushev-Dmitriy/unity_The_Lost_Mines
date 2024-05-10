@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a60a75ad77ee734fb694d6e827da3ce, type: 3}
   m_Name: Resource
   m_EditorClassIdentifier: Assembly-CSharp::Resource
+  prefab: {fileID: 4278813967438485888, guid: 034e0875642eaa9429f506850c0eaf9b, type: 3}
   icon: {fileID: 21300000, guid: 075b4ab898f1b5946932adfa4daf0178, type: 3}
   title: iron
   cost: 30

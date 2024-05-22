@@ -3,34 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RightJoystick : MonoBehaviour, IDragHandler, IEndDragHandler
+public class RightJoystick : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     private RectTransform joystick;
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 joystickStartPos = Vector2.zero;
     public GameObject target;
+
     void Start()
     {
         joystick = transform.GetComponent<RectTransform>();
         joystickStartPos = joystick.anchoredPosition;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        Vector2 position = Vector2.zero;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(joystick, 
+        Vector2 position;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(joystick.parent as RectTransform,
             eventData.position, eventData.pressEventCamera, out position))
         {
-            position.x = Mathf.Clamp(position.x / (joystick.sizeDelta.x / 2), -1f, 1f);
-            position.y = Mathf.Clamp(position.y / (joystick.sizeDelta.y / 2), -1f, 1f);
+            joystick.anchoredPosition = position;
+        }
+    }
 
-            Vector2 inputVector = new Vector2(position.x, position.y);
-            inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
+    public void OnDrag(PointerEventData eventData)
+    {
+        Vector2 position;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(joystick.parent as RectTransform,
+            eventData.position, eventData.pressEventCamera, out position))
+        {
+            Vector2 offset = position - joystickStartPos;
+            offset = Vector2.ClampMagnitude(offset, joystick.sizeDelta.x / 2);
 
-            //joystick.anchoredPosition = new Vector2(inputVector.x * (joystick.sizeDelta.x / 3),
-            //    inputVector.y * (joystick.sizeDelta.y / 3));
+            joystick.anchoredPosition = joystickStartPos + offset;
 
-            moveDirection = inputVector;
+            moveDirection = new Vector2(offset.x / (joystick.sizeDelta.x / 2), offset.y / (joystick.sizeDelta.y / 2));
         }
     }
 

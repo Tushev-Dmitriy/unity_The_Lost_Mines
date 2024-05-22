@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoToMine : MonoBehaviour
 {
     public SceneTransition sceneTransition;
-    public int num;
+    public int num = 1;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

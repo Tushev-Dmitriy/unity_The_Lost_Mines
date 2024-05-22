@@ -35,7 +35,8 @@ public class MoveController : MonoBehaviour, IDragHandler, IEndDragHandler
             Vector2 inputVector = new Vector2(position.x, position.y);
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
-            joystick.anchoredPosition = new Vector2(inputVector.x * (joystickBackground.sizeDelta.x / 3), inputVector.y * (joystickBackground.sizeDelta.y / 3));
+            joystick.anchoredPosition = new Vector2(inputVector.x * (joystickBackground.sizeDelta.x / 3), 
+                inputVector.y * (joystickBackground.sizeDelta.y / 3));
 
             moveDirection = inputVector;
         }

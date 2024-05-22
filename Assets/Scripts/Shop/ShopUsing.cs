@@ -41,7 +41,7 @@ public class ShopUsing : MonoBehaviour
         if (shopRunning)
         {
             shopUi.SetActive(true);
-            shopItems.CheckItemsInShop(0);
+            //shopItems.CheckItemsInShop(0);
             shopRunning = false;
         }
         else
@@ -75,48 +75,48 @@ public class ShopUsing : MonoBehaviour
                 }
                 else
                 {
-                    shopItems.CheckItemsInShop(3);
+                    //shopItems.CheckItemsInShop(3);
                 }
             }
         } else if (category == "all")
         {
-            shopItems.CheckItemsInShop(0);
+            //shopItems.CheckItemsInShop(0);
         }
     }
 
-    public void BuySomething(int i)
-    {
-        int requiredLevel = 2;
-        int nowLevel = statsController.playerLevel;
-        switch (i)
-        {
-            //case 1:
-            //    objectsForBed.shovelDurability = 100;
-            //    inventoryScript.BuyItem(0);
-            //    break;
+    //public void BuySomething(int i)
+    //{
+    //    int requiredLevel = 2;
+    //    int nowLevel = statsController.playerLevel;
+    //    switch (i)
+    //    {
+    //        case 1:
+    //            objectsForBed.shovelDurability = 100;
+    //            inventoryScript.BuyItem(0);
+    //            break;
 
-            //case 2:
-            //    objectsForBed.hoeDurability = 100;
-            //    inventoryScript.BuyItem(1);
-            //    break;
+    //        case 2:
+    //            objectsForBed.hoeDurability = 100;
+    //            inventoryScript.BuyItem(1);
+    //            break;
 
-            //case 3:
-            //    objectsForBed.waterCanDurability = 100;
-            //    inventoryScript.BuyItem(2);
-            //    break;
+    //        case 3:
+    //            objectsForBed.waterCanDurability = 100;
+    //            inventoryScript.BuyItem(2);
+    //            break;
 
-            //case 4:
-            //    inventoryScript.BuyItem(5);
-            //    break;
+    //        case 4:
+    //            inventoryScript.BuyItem(5);
+    //            break;
 
-            //case 5:
-            //    if (nowLevel >= requiredLevel)
-            //    {
-            //        inventoryScript.BuyItem(6);
-            //    }
-            //    break;
-        }
-    }
+    //        case 5:
+    //            if (nowLevel >= requiredLevel)
+    //            {
+    //                inventoryScript.BuyItem(6);
+    //            }
+    //            break;
+    //    }
+    //}
 
     public void ClearShopInterface()
     {

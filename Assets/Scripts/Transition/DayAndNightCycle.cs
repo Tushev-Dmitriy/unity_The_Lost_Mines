@@ -5,7 +5,7 @@ using UnityEngine;
 public class DayAndNightCycle : MonoBehaviour
 {
     private Vector3 rot = Vector3.zero;
-    private float degpersec = 0.5f;
+    public float degpersec = 0.5f;
 
     public bool isNight = false;
 

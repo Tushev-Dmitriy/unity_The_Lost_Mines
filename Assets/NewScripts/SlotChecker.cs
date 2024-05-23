@@ -13,10 +13,9 @@ public class SlotChecker : MonoBehaviour
 
     public void CheckItemInSlot(string nameOfItem, int numOfItem)
     {
+        itemCount = 0;
         for (int i = 0; i < slotsOfInventory.Length; i++)
         {
-            Debug.Log(slotsOfInventory[i]);
-            Debug.Log(itemCount);
             if (slotsOfInventory[i].transform.childCount == 0 && itemCount == 0)
             {
                 switch (nameOfItem)
@@ -30,13 +29,14 @@ public class SlotChecker : MonoBehaviour
                         itemCount = 1;
                         break;
                 }
-            } else
+            } else if (slotsOfInventory[i].transform.childCount == 1 && itemCount == 0)
             {
                 GameObject childOfSlot = slotsOfInventory[i].transform.GetChild(0).gameObject;
                 ItemInfo itemInfo = childOfSlot.GetComponent<ItemInfo>();
-                if (itemInfo.isStackable)
+                if (nameOfItem == "r")
                 {
-                    if (itemInfo.count < 64)
+                    string itemName = resources[numOfItem].name + "(Clone)";
+                    if (itemName == itemInfo.name && itemInfo.count < 64)
                     {
                         itemInfo.count++;
                         childOfSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = itemInfo.count.ToString();

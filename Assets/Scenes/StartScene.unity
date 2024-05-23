@@ -35266,6 +35266,9 @@ MonoBehaviour:
   - {fileID: 5025505550088189182, guid: c808f4020aace024b882ffc0457b0fa3, type: 3}
   tools:
   - {fileID: 5025505550088189182, guid: 13b5e8817c9997f49973f7b642176bd3, type: 3}
+  - {fileID: 5025505550088189182, guid: b9dfad728fe78fa4c9057fed9c8009da, type: 3}
+  - {fileID: 5025505550088189182, guid: 7ded6ff0b9231374b9b3c30c6c13d4b7, type: 3}
+  - {fileID: 5025505550088189182, guid: 512bd6487fa309349a68e5644d1b6017, type: 3}
   itemCount: 0
 --- !u!224 &1576513953 stripped
 RectTransform:

@@ -8,8 +8,13 @@ public class testNewItems : MonoBehaviour
 
     public void AddItem()
     {
-        slotChecker.CheckItemInSlot("r", 0);
-        slotChecker.itemCount = 0;
-        slotChecker.CheckItemInSlot("t", 0);
+        for (int i = 0; i < 5; i++)
+        {
+            slotChecker.CheckItemInSlot("r", 0);
+        }
+        for (int i = 0; i < 4;i++)
+        {
+            slotChecker.CheckItemInSlot("t", i);
+        }
     }
 }

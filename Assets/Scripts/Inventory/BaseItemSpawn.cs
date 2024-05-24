@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class BaseItemSpawn : MonoBehaviour
 {
-    public InventoryScript inventoryScript;
+    public SlotChecker slotChecker;
+
     private void Start()
     {
-        inventoryScript.PickupItem(0, 0);
-        inventoryScript.PickupItem(1, 0);
-        inventoryScript.PickupItem(2, 0);
-        inventoryScript.PickupItem(4, 0);
+        for (int i = 0; i < 4; i++)
+        {
+            slotChecker.AddItemInSlot("t", i);
+        }
+
         for (int i = 0; i < 5; i++)
         {
-            inventoryScript.PickupItem(0, 1);
+            slotChecker.AddItemInSlot("r", 0);
         }
     }
 }

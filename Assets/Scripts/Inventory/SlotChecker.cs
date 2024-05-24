@@ -1,0 +1,131 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class SlotChecker : MonoBehaviour
+{
+    [Header("Items & slots data")]
+    public GameObject[] slotsOfInventory;
+    public GameObject[] resources;
+    public GameObject[] tools;
+    public GameObject[] craftableItems;
+
+    [Header("Prime slots")]
+    public GameObject craftSlot;
+    public GameObject toolSlot;
+    public GameObject inventoryGO;
+    public GameObject inGameCanvas;
+
+    [Header("Swap slots")]
+    public GameObject firstSlot;
+    public GameObject secondSlot;
+    public GameObject firstSlotChild;
+    public GameObject secondSlotChild;
+
+    public int itemCount = 0;
+
+    public void AddItemInSlot(string nameOfItem, int numOfItem)
+    {
+        itemCount = 0;
+        for (int i = 0; i < slotsOfInventory.Length - 17; i++)
+        {
+            if (slotsOfInventory[i].transform.childCount == 0 && itemCount == 0)
+            {
+                switch (nameOfItem)
+                {
+                    case "r":
+                        Instantiate(resources[numOfItem], slotsOfInventory[i].transform);
+                        itemCount = 1;
+                        break;
+                    case "t":
+                        Instantiate(tools[numOfItem], slotsOfInventory[i].transform);
+                        itemCount = 1;
+                        break;
+                }
+            } else if (slotsOfInventory[i].transform.childCount == 1 && itemCount == 0)
+            {
+                GameObject childOfSlot = slotsOfInventory[i].transform.GetChild(0).gameObject;
+                ItemInfo itemInfo = childOfSlot.GetComponent<ItemInfo>();
+                if (nameOfItem == "r")
+                {
+                    string itemName = resources[numOfItem].name + "(Clone)";
+                    if (itemName == itemInfo.name && itemInfo.count < 64)
+                    {
+                        itemInfo.count++;
+                        childOfSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = itemInfo.count.ToString();
+                        itemCount = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    public void ToolSlotSwap(bool isGame)
+    {
+        if (!isGame)
+        {
+            toolSlot.transform.SetParent(inventoryGO.transform);
+        } else
+        {
+            toolSlot.transform.SetParent(inGameCanvas.transform);
+        }
+    }
+
+    public void SwapSlot(int numOfSlot)
+    {
+        if (firstSlot == null)
+        {
+            firstSlot = slotsOfInventory[numOfSlot];
+            if (firstSlot.transform.childCount == 0 )
+            {
+                firstSlot = null;
+            }
+        } else
+        {
+            secondSlot = slotsOfInventory[numOfSlot];
+            if (secondSlot.transform.childCount == 0 )
+            {
+                firstSlot.transform.GetChild(0).gameObject.transform.SetParent(secondSlot.transform);
+            } else
+            {
+                firstSlot.transform.GetChild(0).gameObject.transform.SetParent(secondSlot.transform);
+                secondSlot.transform.GetChild(0).gameObject.transform.SetParent(firstSlot.transform);
+            }
+            firstSlot = null;
+            secondSlot = null;
+        }
+    }
+
+    public void CheckCraftItem()
+    {
+        if (craftSlot.transform.childCount > 0)
+        {
+            GameObject itemInSlot = craftSlot.transform.GetChild(0).gameObject;
+            ItemInfo slotItemInfo = itemInSlot.GetComponent<ItemInfo>();
+            if (slotItemInfo.type == TypeOfItem.Resource)
+            {
+                string nameOfItem = slotItemInfo.name;
+                for (int i = 0; i < craftableItems.Length; i++)
+                {
+                    var recipeForCraft = craftableItems[i].GetComponent<ItemInfo>().recipe;
+                    for (int j = 0; j < recipeForCraft.Count; j++)
+                    {
+                        if (recipeForCraft.Count == 1 && 
+                           (recipeForCraft[j].resource + "(Clone)") == nameOfItem)
+                        {
+                            int countToCraft = recipeForCraft[j].quantity;
+                            Instantiate(craftableItems[i], craftSlot.transform);
+                            int countOfOldItem = craftSlot.transform.GetChild(0).gameObject.
+                                GetComponent<ItemInfo>().count;
+                            int countOfNewItem = countOfOldItem / countToCraft;
+                            craftSlot.transform.GetChild(1).gameObject.GetComponent<ItemInfo>().
+                                count = countOfNewItem;
+                            Destroy(itemInSlot);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

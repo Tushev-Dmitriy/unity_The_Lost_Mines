@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 public class SlotChecker : MonoBehaviour
 {
     [Header("Items & slots data")]
@@ -23,7 +24,10 @@ public class SlotChecker : MonoBehaviour
     public GameObject firstSlotChild;
     public GameObject secondSlotChild;
 
-    public int itemCount = 0;
+    [Header("Scripts")]
+    public StatsController statsController;
+
+    [HideInInspector] public int itemCount = 0;
 
     public void AddItemInSlot(string nameOfItem, int numOfItem)
     {
@@ -40,6 +44,10 @@ public class SlotChecker : MonoBehaviour
                         break;
                     case "t":
                         Instantiate(tools[numOfItem], slotsOfInventory[i].transform);
+                        itemCount = 1;
+                        break;
+                    case "c":
+                        Instantiate(craftableItems[numOfItem], slotsOfInventory[i].transform);
                         itemCount = 1;
                         break;
                 }
@@ -125,6 +133,44 @@ public class SlotChecker : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void SellItem()
+    {
+        GameObject currentSlot = EventSystem.current.currentSelectedGameObject;
+        Debug.Log(currentSlot);
+        if (currentSlot.transform.GetChild(0).GetComponent<ItemInfo>().count == 1)
+        {
+            statsController.playerMoney += currentSlot.transform.GetChild(0).GetComponent<ItemInfo>().cost;
+        } else
+        {
+            statsController.playerMoney += currentSlot.transform.GetChild(0).GetComponent<ItemInfo>().cost *
+                currentSlot.transform.GetChild(0).GetComponent<ItemInfo>().count;
+        }   
+        statsController.UpdateMoneyText();
+        Destroy(currentSlot.transform.GetChild(0).gameObject);
+        firstSlot = null;
+    }
+
+    public void AddOrRemoveListenerForInteract(bool isAdd)
+    {
+        if (isAdd)
+        {
+            for (int i = 0; i < slotsOfInventory.Length - 17; i++)
+            {
+                if (slotsOfInventory[i].transform.childCount == 1)
+                {
+                    slotsOfInventory[i].GetComponent<Button>().onClick.AddListener(delegate { SellItem(); });
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < slotsOfInventory.Length - 17; i++)
+            {
+                slotsOfInventory[i].GetComponent<Button>().onClick.RemoveAllListeners();
             }
         }
     }

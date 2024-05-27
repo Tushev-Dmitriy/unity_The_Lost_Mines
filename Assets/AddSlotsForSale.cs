@@ -8,9 +8,6 @@ public class AddSlotsForSale : MonoBehaviour
     public GameObject saleBg;
     public GameObject inventoryBg;
 
-    //private Vector2 startPos = Vector2.zero;
-    //private Vector2 endPos = new Vector2(270, -75);
-
     public void slotsToShop()
     {
         inventorySlot.transform.SetParent(saleBg.transform);

@@ -29,7 +29,7 @@ public class ItemInfo : MonoBehaviour
     [Header("For Craft")]
     public List<RecipeOfCraft> recipe;
 
-    private void Start()
+    public void Start()
     {
         GetComponent<Image>().sprite = icon;
         if (isStackable)

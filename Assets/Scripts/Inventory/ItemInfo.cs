@@ -39,6 +39,14 @@ public class ItemInfo : MonoBehaviour
             textOfItem.GetComponent<TextMeshProUGUI>().text = count.ToString();
         }
     }
+
+    private void Update()
+    {
+        if (type == TypeOfItem.Tool && durability <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
 
 [System.Serializable]

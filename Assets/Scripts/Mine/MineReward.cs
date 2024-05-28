@@ -5,8 +5,70 @@ using UnityEngine.UI;
 
 public class MineReward : MonoBehaviour
 {
-    public GameObject resourceInMine;
-    public GameObject toolBtn;
+    public StatsController statsController;
+    public SlotChecker slotChecker;
 
-    private GameObject thisGO;
+    public GameObject[] allResource;
+    public GameObject itemInMine;
+    public GameObject resourceInMine;
+    public GameObject toolSlot;
+    public bool inMine;
+
+    private int timeToSpawn;
+    private int quantity;
+    private int xp;
+    private bool firstClick = true;
+    public void SetResource(int numOfRes)
+    {
+        if (itemInMine.transform.childCount != 0)
+        {
+            for (int i = 0; i < itemInMine.transform.childCount; i++)
+            {
+                Destroy(itemInMine.transform.GetChild(i).gameObject);
+            }
+        }
+        GameObject tempGO = Instantiate(allResource[numOfRes], itemInMine.transform);
+        tempGO.transform.localScale = new Vector3(3.45f, 3.45f, 3.45f);
+        tempGO.transform.localPosition = Vector3.zero;
+        tempGO.GetComponent<CheckTypeOfResource>().mineReward = FindAnyObjectByType<MineReward>();
+    }
+
+    public void ClearAllDataAboutItem()
+    {
+        timeToSpawn = 0;
+        quantity = 0;
+        xp = 0;
+        firstClick = true;
+    }
+
+    public void UseTool()
+    {
+        if (toolSlot.transform.childCount == 1 && inMine)
+        {
+            var toolInfo = toolSlot.transform.GetChild(0).GetComponent<ItemInfo>();
+            if (toolInfo.title == "Pickaxe")
+            {
+                if (firstClick)
+                {
+                    var itemOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().itemInInventory;
+                    var itemInfo = itemOfRes.GetComponent<ItemInfo>();
+                    timeToSpawn = itemInfo.timeToSpawn;
+                    quantity = itemInfo.quantity;
+                    xp = itemInfo.xp;
+                    firstClick = false;
+                }
+
+                if (quantity == 0)
+                {
+                    Destroy(resourceInMine);
+                    statsController.LevelFill(xp);
+                    ClearAllDataAboutItem();
+                }
+
+                slotChecker.AddItemInSlot("r", 0);
+                quantity--;
+                toolInfo.durability--;
+            }
+        }
+    }
 }

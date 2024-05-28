@@ -10,7 +10,7 @@ public class SceneTransition : MonoBehaviour
     public GameObject mine;
 
     private GameObject player;
-    private Vector3[] positions = new Vector3[2] { new Vector3(0, 12.5f, 0), new Vector3(103, 12.3f, 0) };
+    private Vector3[] positions = new Vector3[2] { new Vector3(0, 12.5f, 0), new Vector3(0, 0.11f, -1.73f) };
 
     private void Start()
     {

@@ -107,7 +107,7 @@ public class SlotChecker : MonoBehaviour
 
     public void CheckCraftItem()
     {
-        if (craftSlot.transform.childCount > 0)
+        if (craftSlot.transform.childCount > 0 && statsController.playerLevel >= 2)
         {
             GameObject itemInSlot = craftSlot.transform.GetChild(0).gameObject;
             ItemInfo slotItemInfo = itemInSlot.GetComponent<ItemInfo>();

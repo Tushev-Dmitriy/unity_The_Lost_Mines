@@ -128,3 +128,4 @@ MonoBehaviour:
   mineReward: {fileID: 0}
   itemInInventory: {fileID: 5025505550088189182, guid: 1f5d3a6090fbf304db5d5586b2093a57,
     type: 3}
+  numOfItem: 3

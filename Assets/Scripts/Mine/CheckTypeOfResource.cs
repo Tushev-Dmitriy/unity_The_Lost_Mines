@@ -6,6 +6,7 @@ public class CheckTypeOfResource : MonoBehaviour
 {
     public MineReward mineReward;
     public GameObject itemInInventory;
+    public int numOfItem;
 
     private void OnTriggerEnter(Collider other)
     {

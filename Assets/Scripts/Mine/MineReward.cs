@@ -17,6 +17,7 @@ public class MineReward : MonoBehaviour
     private int timeToSpawn;
     private int quantity;
     private int xp;
+    private int numOfRes;
     private bool firstClick = true;
     public void SetResource(int numOfRes)
     {
@@ -38,7 +39,9 @@ public class MineReward : MonoBehaviour
         timeToSpawn = 0;
         quantity = 0;
         xp = 0;
+        numOfRes = -1;
         firstClick = true;
+        resourceInMine = null;
     }
 
     public void UseTool()
@@ -52,6 +55,7 @@ public class MineReward : MonoBehaviour
                 {
                     var itemOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().itemInInventory;
                     var itemInfo = itemOfRes.GetComponent<ItemInfo>();
+                    numOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().numOfItem;
                     timeToSpawn = itemInfo.timeToSpawn;
                     quantity = itemInfo.quantity;
                     xp = itemInfo.xp;
@@ -63,9 +67,10 @@ public class MineReward : MonoBehaviour
                     Destroy(resourceInMine);
                     statsController.LevelFill(xp);
                     ClearAllDataAboutItem();
+                    numOfRes = -1;
                 }
 
-                slotChecker.AddItemInSlot("r", 0);
+                slotChecker.AddItemInSlot("r", numOfRes);
                 quantity--;
                 toolInfo.durability--;
             }

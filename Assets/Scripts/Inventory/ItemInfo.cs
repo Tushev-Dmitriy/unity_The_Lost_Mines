@@ -22,7 +22,7 @@ public class ItemInfo : MonoBehaviour
     public int durability;
 
     [Header ("For resources")]
-    public int timeToSpawn;
+    public float timeToSpawn;
     public int quantity;
     public int xp;
 

@@ -7,6 +7,8 @@ public class MineReward : MonoBehaviour
 {
     public StatsController statsController;
     public SlotChecker slotChecker;
+    public ResourceController resourceController;
+    public BottleController bottleController;
 
     public GameObject[] allResource;
     public GameObject itemInMine;
@@ -14,32 +16,48 @@ public class MineReward : MonoBehaviour
     public GameObject toolSlot;
     public bool inMine;
 
-    private int timeToSpawn;
-    private int quantity;
-    private int xp;
-    private int numOfRes;
     private bool firstClick = true;
-    public void SetResource(int numOfRes)
+    private int resToSpawn;
+    public void SetResource(int numOfRes, int numOfMine)
     {
-        if (itemInMine.transform.childCount != 0)
+        resToSpawn = numOfMine;
+        if (resourceController.resArray[numOfMine] == null)
         {
-            for (int i = 0; i < itemInMine.transform.childCount; i++)
+            if (itemInMine.transform.childCount > 0)
             {
-                Destroy(itemInMine.transform.GetChild(i).gameObject);
+                Destroy(itemInMine.transform.GetChild(0).gameObject);
             }
+            GameObject tempGO = Instantiate(allResource[numOfRes], itemInMine.transform);
+            tempGO.transform.localScale = new Vector3(3.45f, 3.45f, 3.45f);
+            tempGO.transform.localPosition = Vector3.zero;
+            tempGO.GetComponent<CheckTypeOfResource>().mineReward = FindAnyObjectByType<MineReward>();
+        } else
+        {
+            if (itemInMine.transform.childCount > 0)
+            {
+                Destroy(itemInMine.transform.GetChild(0).gameObject);
+            }
+            Instantiate(resourceController.resArray[numOfMine], itemInMine.transform);
+            itemInMine.transform.GetChild(0).gameObject.GetComponent<CheckTypeOfResource>().mineReward = FindAnyObjectByType<MineReward>();
         }
-        GameObject tempGO = Instantiate(allResource[numOfRes], itemInMine.transform);
-        tempGO.transform.localScale = new Vector3(3.45f, 3.45f, 3.45f);
-        tempGO.transform.localPosition = Vector3.zero;
-        tempGO.GetComponent<CheckTypeOfResource>().mineReward = FindAnyObjectByType<MineReward>();
+    }
+
+    public CheckTypeOfResource ReturnResourceInMine()
+    {
+        //var tempInfo = 
+        //CheckTypeOfResource data = gameObject.AddComponent<CheckTypeOfResource>();
+        //data.mineReward = tempInfo.mineReward;
+        //data.itemInInventory = tempInfo.itemInInventory;
+        //data.numOfItem = tempInfo.numOfItem;
+        //data.timeToSpawn = tempInfo.timeToSpawn;
+        //data.quantity = tempInfo.quantity;
+        //data.xp = tempInfo.xp;
+        //data.numOfRes = tempInfo.numOfRes;
+        return itemInMine.transform.GetChild(0).gameObject.GetComponent<CheckTypeOfResource>();
     }
 
     public void ClearAllDataAboutItem()
     {
-        timeToSpawn = 0;
-        quantity = 0;
-        xp = 0;
-        numOfRes = -1;
         firstClick = true;
         resourceInMine = null;
     }
@@ -49,31 +67,41 @@ public class MineReward : MonoBehaviour
         if (toolSlot.transform.childCount == 1 && inMine)
         {
             var toolInfo = toolSlot.transform.GetChild(0).GetComponent<ItemInfo>();
+            var itemFullInfo = resourceInMine.GetComponent<CheckTypeOfResource>();
             if (toolInfo.title == "Pickaxe")
             {
                 if (firstClick)
                 {
+                    Debug.Log(123);
                     var itemOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().itemInInventory;
                     var itemInfo = itemOfRes.GetComponent<ItemInfo>();
-                    numOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().numOfItem;
-                    timeToSpawn = itemInfo.timeToSpawn;
-                    quantity = itemInfo.quantity;
-                    xp = itemInfo.xp;
+                    itemFullInfo.numOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().numOfItem;
+                    itemFullInfo.timeToSpawn = itemInfo.timeToSpawn;
+                    itemFullInfo.quantity = itemInfo.quantity;
+                    itemFullInfo.xp = itemInfo.xp;
                     firstClick = false;
                 }
 
-                if (quantity == 0)
+                if (itemFullInfo.quantity == 0)
                 {
                     Destroy(resourceInMine);
-                    statsController.LevelFill(xp);
+                    statsController.LevelFill(itemFullInfo.xp);
+                    StartCoroutine(RespawnResource(itemFullInfo.timeToSpawn));
                     ClearAllDataAboutItem();
-                    numOfRes = -1;
+                    itemFullInfo.numOfRes = -1;
                 }
 
-                slotChecker.AddItemInSlot("r", numOfRes);
-                quantity--;
+                slotChecker.AddItemInSlot("r", itemFullInfo.numOfRes);
+                itemFullInfo.quantity--;
                 toolInfo.durability--;
             }
         }
+    }
+
+    IEnumerator RespawnResource(float waitToSpawn)
+    {
+        int newItem = resToSpawn;
+        yield return new WaitForSeconds(waitToSpawn);
+        SetResource(newItem, 0);
     }
 }

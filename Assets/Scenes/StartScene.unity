@@ -8049,9 +8049,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 1
   numOfRes: 0
   numOfMine: 4
+  goOut: 0
 --- !u!1 &365462470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 8dcf299d74f89114eb1e8a6ecc154014,
@@ -12331,6 +12333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424afb535dbff6042bf98a3f28def647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numOfMine: 0
   mines:
   - {fileID: 4752330565766172253}
   - {fileID: 1095718165}
@@ -15062,9 +15065,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 1
   numOfRes: 0
   numOfMine: 5
+  goOut: 0
 --- !u!1 &619337890
 GameObject:
   m_ObjectHideFlags: 0
@@ -21438,9 +21443,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 1
   numOfRes: 0
   numOfMine: 2
+  goOut: 0
 --- !u!1 &881421352
 GameObject:
   m_ObjectHideFlags: 0
@@ -25962,7 +25969,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1856925023}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25996,7 +26004,7 @@ MonoBehaviour:
   statsController: {fileID: 288460960}
   slotChecker: {fileID: 1576450678}
   resourceController: {fileID: 525253522}
-  bottleController: {fileID: 0}
+  bottleController: {fileID: 288460962}
   allResource:
   - {fileID: 4278813967438485888, guid: 034e0875642eaa9429f506850c0eaf9b, type: 3}
   - {fileID: 5471527372165272212, guid: 4724574e5eedde54289c6478bf873211, type: 3}
@@ -26005,6 +26013,7 @@ MonoBehaviour:
   itemInMine: {fileID: 1818226655}
   resourceInMine: {fileID: 0}
   toolSlot: {fileID: 547715669}
+  resourceInfo: {fileID: 1856925022}
   inMine: 0
 --- !u!1 &1049903956
 GameObject:
@@ -26536,9 +26545,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 1
   numOfRes: 0
   numOfMine: 3
+  goOut: 0
 --- !u!1 &1058544639 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: e66f5bac28c2dda41b28bd041bde3faa,
@@ -27984,9 +27995,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 1
   numOfRes: 0
   numOfMine: 1
+  goOut: 0
 --- !u!1 &1096880819
 GameObject:
   m_ObjectHideFlags: 0
@@ -39460,9 +39473,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 0
   numOfRes: 0
   numOfMine: 0
+  goOut: 1
 --- !u!1 &1653068071 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: d0e37e01b04e85a4e91e909193077dea,
@@ -44079,6 +44094,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1849137870}
   m_CullTransparentMesh: 1
+--- !u!1 &1856925022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856925023}
+  m_Layer: 0
+  m_Name: ResourceInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856925023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856925022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1049459316}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1857297915 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 8dcf299d74f89114eb1e8a6ecc154014,
@@ -77092,9 +77138,11 @@ MonoBehaviour:
   sceneTransition: {fileID: 1049459317}
   mineReward: {fileID: 1049459318}
   resourceController: {fileID: 525253522}
+  resourceInfo: {fileID: 1856925022}
   num: 1
   numOfRes: 0
   numOfMine: 0
+  goOut: 0
 --- !u!1 &9019230681370104472
 GameObject:
   m_ObjectHideFlags: 0

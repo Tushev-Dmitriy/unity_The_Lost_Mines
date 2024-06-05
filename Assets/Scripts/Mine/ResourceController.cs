@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ResourceController : MonoBehaviour
 {
+    public int numOfMine;
+
     public GameObject[] mines;
     public CheckTypeOfResource[] resArray = new CheckTypeOfResource[6];
 }

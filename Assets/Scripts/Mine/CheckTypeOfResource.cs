@@ -13,6 +13,8 @@ public class CheckTypeOfResource : MonoBehaviour
     public int xp;
     public int numOfRes;
 
+    public int numOfMine;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

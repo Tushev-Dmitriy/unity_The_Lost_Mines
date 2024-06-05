@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//https://github.com/RockyHong/UnityGetComponentCache cache libary
+//считывание данных в других шахтах
+
 public class MineReward : MonoBehaviour
 {
     public StatsController statsController;
@@ -14,9 +17,10 @@ public class MineReward : MonoBehaviour
     public GameObject itemInMine;
     public GameObject resourceInMine;
     public GameObject toolSlot;
+    public GameObject resourceInfo;
     public bool inMine;
 
-    private bool firstClick = true;
+    public bool firstClick = true;
     private int resToSpawn;
     public void SetResource(int numOfRes, int numOfMine)
     {
@@ -31,29 +35,68 @@ public class MineReward : MonoBehaviour
             tempGO.transform.localScale = new Vector3(3.45f, 3.45f, 3.45f);
             tempGO.transform.localPosition = Vector3.zero;
             tempGO.GetComponent<CheckTypeOfResource>().mineReward = FindAnyObjectByType<MineReward>();
+            tempGO.GetComponent<CheckTypeOfResource>().numOfMine = numOfMine;
         } else
         {
             if (itemInMine.transform.childCount > 0)
             {
                 Destroy(itemInMine.transform.GetChild(0).gameObject);
             }
-            Instantiate(resourceController.resArray[numOfMine], itemInMine.transform);
-            itemInMine.transform.GetChild(0).gameObject.GetComponent<CheckTypeOfResource>().mineReward = FindAnyObjectByType<MineReward>();
+            GameObject tempGO = Instantiate(allResource[numOfRes], itemInMine.transform);
+
+            tempGO.transform.localPosition = Vector3.zero;
+            tempGO.transform.localScale = new Vector3(3.45f, 3.45f, 3.45f);
+
+            CheckTypeOfResource itemInfo = null;
+            CheckTypeOfResource[] itemInfoArray = resourceInfo.GetComponents<CheckTypeOfResource>();
+            for (int i = 0; i < itemInfoArray.Length; i++)
+            {
+                if (itemInfoArray[i].numOfMine == numOfMine)
+                {
+                    itemInfo = itemInfoArray[i];
+                }
+            }
+
+            if (itemInfo != null)
+            {
+                tempGO.AddComponent<CheckTypeOfResource>();
+                CheckTypeOfResource newItemInfo = tempGO.GetComponent<CheckTypeOfResource>();
+
+                newItemInfo.mineReward = FindAnyObjectByType<MineReward>();
+                newItemInfo.itemInInventory = resourceController.resArray[numOfMine].itemInInventory;
+                newItemInfo.numOfItem = resourceController.resArray[numOfMine].numOfItem;
+                newItemInfo.timeToSpawn = resourceController.resArray[numOfMine].timeToSpawn;
+                newItemInfo.quantity = resourceController.resArray[numOfMine].quantity;
+                newItemInfo.xp = resourceController.resArray[numOfMine].xp;
+                newItemInfo.numOfRes = resourceController.resArray[numOfMine].numOfRes;
+
+                Destroy(itemInfo);
+            }
         }
     }
 
     public CheckTypeOfResource ReturnResourceInMine()
     {
-        //var tempInfo = 
-        //CheckTypeOfResource data = gameObject.AddComponent<CheckTypeOfResource>();
-        //data.mineReward = tempInfo.mineReward;
-        //data.itemInInventory = tempInfo.itemInInventory;
-        //data.numOfItem = tempInfo.numOfItem;
-        //data.timeToSpawn = tempInfo.timeToSpawn;
-        //data.quantity = tempInfo.quantity;
-        //data.xp = tempInfo.xp;
-        //data.numOfRes = tempInfo.numOfRes;
-        return itemInMine.transform.GetChild(0).gameObject.GetComponent<CheckTypeOfResource>();
+        var tempInfo = resourceInMine.GetComponent<CheckTypeOfResource>();
+        var data = gameObject.transform.GetChild(0).gameObject.AddComponent<CheckTypeOfResource>();
+        data.mineReward = tempInfo.mineReward;
+        data.itemInInventory = tempInfo.itemInInventory;
+        data.numOfItem = tempInfo.numOfItem;
+        data.timeToSpawn = tempInfo.timeToSpawn;
+        data.quantity = tempInfo.quantity;
+        data.xp = tempInfo.xp;
+        data.numOfRes = tempInfo.numOfRes;
+        data.numOfMine = tempInfo.numOfMine;
+
+        CheckTypeOfResource[] itemInfoArray = resourceInfo.GetComponents<CheckTypeOfResource>();
+        for (int i = 0; i < itemInfoArray.Length; i++)
+        {
+            if (itemInfoArray[i].numOfMine == resToSpawn)
+            {
+                return itemInfoArray[i];
+            }
+        }
+        return null;
     }
 
     public void ClearAllDataAboutItem()
@@ -72,7 +115,6 @@ public class MineReward : MonoBehaviour
             {
                 if (firstClick)
                 {
-                    Debug.Log(123);
                     var itemOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().itemInInventory;
                     var itemInfo = itemOfRes.GetComponent<ItemInfo>();
                     itemFullInfo.numOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().numOfItem;
@@ -89,6 +131,7 @@ public class MineReward : MonoBehaviour
                     StartCoroutine(RespawnResource(itemFullInfo.timeToSpawn));
                     ClearAllDataAboutItem();
                     itemFullInfo.numOfRes = -1;
+                    firstClick = true;
                 }
 
                 slotChecker.AddItemInSlot("r", itemFullInfo.numOfRes);
@@ -102,6 +145,7 @@ public class MineReward : MonoBehaviour
     {
         int newItem = resToSpawn;
         yield return new WaitForSeconds(waitToSpawn);
+        resourceController.resArray[0] = null;
         SetResource(newItem, 0);
     }
 }

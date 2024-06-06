@@ -1,0 +1,269 @@
+{
+    "items": [
+      {
+        "name": "assistant",
+        "cost": 400,
+        "requiredLevel": [2, 3]
+      },
+      {
+        "name": "machine",
+        "cost": 800,
+        "requiredLevel": 4
+      },
+      {
+        "name": "resources",
+        "items": [
+          {
+            "name": "iron",
+            "cost": 30,
+            "requiredLevel": 1,
+            "timeToSpawn": 40
+          },
+          {
+            "name": "copper",
+            "cost": 50,
+            "requiredLevel": 2,
+            "timeToSpawn": 80
+          },
+          {
+            "name": "silver",
+            "cost": 100,
+            "requiredLevel": 3,
+            "timeToSpawn": 110
+          },
+          {
+            "name": "gold",
+            "cost": 200,
+            "requiredLevel": 4,
+            "timeToSpawn": 160
+          }
+        ]
+      },
+      {
+        "name": "minerals",
+        "items": [
+            {
+                "name": "oil",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "water",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "granite",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "coal",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "marble",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "basalt",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "slate",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "pine",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "birch",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "oak",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "maple",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              },
+              {
+                "name": "alder",
+                "xp": 80,
+                "quantity": 8,
+                "timeToSpawn": 40
+              }
+        ]
+      },
+      {
+        "name": "tools",
+        "items": [
+          {
+            "name": "pickaxe",
+            "cost": 200,
+            "durability": 15,
+            "requiredLevel": 1
+          },
+          {
+            "name": "shovel",
+            "cost": 400,
+            "durability": 5,
+            "requiredLevel": 1
+          },
+          {
+            "name": "bucket",
+            "cost": 200,
+            "durability": 10,
+            "requiredLevel": 1
+          },
+          {
+            "name": "axe",
+            "cost": 200,
+            "durability": 10,
+            "requiredLevel": 1
+          },
+          {
+            "name": "bottle",
+            "cost": 400,
+            "durability": "infinite",
+            "requiredLevel": 1
+          }
+        ]
+      },
+      {
+        "name": "craftableItems",
+        "items": [
+          {
+            "name": "steel",
+            "recipe": [
+              {"resource": "iron", "quantity": 1},
+              {"resource": "copper", "quantity": 1}
+            ],
+            "cost": 100,
+            "requiredLevel": 2
+          },
+          {
+            "name": "bronze",
+            "recipe": [
+              {"resource": "copper", "quantity": 2}
+            ],
+            "cost": 140,
+            "requiredLevel": 2
+          },
+          {
+            "name": "pureSilver",
+            "recipe": [
+              {"resource": "silver", "quantity": 1}
+            ],
+            "cost": 280,
+            "requiredLevel": 2
+          },
+          {
+            "name": "pureGold",
+            "recipe": [
+              {"resource": "gold", "quantity": 1}
+            ],
+            "cost": 400,
+            "requiredLevel": 2
+          },
+          {
+            "name": "ironCopper",
+            "recipe": [
+              {"resource": "iron", "quantity": 1},
+              {"resource": "copper", "quantity": 1}
+            ],
+            "cost": 480,
+            "requiredLevel": 3
+          },
+          {
+            "name": "silverIron",
+            "recipe": [
+              {"resource": "silver", "quantity": 1},
+              {"resource": "iron", "quantity": 1}
+            ],
+            "cost": 380,
+            "requiredLevel": 3
+          },
+          {
+            "name": "goldSilver",
+            "recipe": [
+              {"resource": "gold", "quantity": 1},
+              {"resource": "silver", "quantity": 1}
+            ],
+            "cost": 1360,
+            "requiredLevel": 3
+          },
+          {
+            "name": "storage",
+            "recipe": [
+              {"resource": "wood", "quantity": 4},
+              {"resource": "steel", "quantity": 1}
+            ],
+            "requiredLevel": 1
+          },
+          {
+            "name": "well",
+            "recipe": [
+              {"resource": "bronze", "quantity": 1},
+              {"resource": "pureSilver", "quantity": 1}
+            ],
+            "requiredLevel": 1
+          },
+          {
+            "name": "sawmill",
+            "recipe": [
+              {"resource": "steel", "quantity": 1},
+              {"resource": "bronze", "quantity": 1}
+            ],
+            "requiredLevel": 1
+          },
+          {
+            "name": "miningMachineOre",
+            "recipe": [
+              {"resource": "ironCopper", "quantity": 1},
+              {"resource": "pureGold", "quantity": 1}
+            ],
+            "requiredLevel": 3
+          },
+          {
+            "name": "miningMachineRock",
+            "recipe": [
+              {"resource": "ironCopper", "quantity": 1},
+              {"resource": "silverIron", "quantity": 1}
+            ],
+            "requiredLevel": 3
+          },
+          {
+            "name": "pumpJack",
+            "recipe": [
+              {"resource": "ironCopper", "quantity": 1},
+              {"resource": "goldSilver", "quantity": 1}
+            ],
+            "requiredLevel": 3
+          }
+        ]
+      }
+    ]
+  }
+  

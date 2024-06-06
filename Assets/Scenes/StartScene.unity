@@ -6170,6 +6170,13 @@ MonoBehaviour:
   - {fileID: 248776212}
   - {fileID: 310606655}
   moneyText: {fileID: 401928067}
+  allMines:
+  - {fileID: 4752330565766172253}
+  - {fileID: 1095718165}
+  - {fileID: 875738186}
+  - {fileID: 1056950497}
+  - {fileID: 363244911}
+  - {fileID: 618357383}
   playerLevel: 1
   playerMoney: 400
 --- !u!4 &288460961
@@ -26015,6 +26022,8 @@ MonoBehaviour:
   toolSlot: {fileID: 547715669}
   resourceInfo: {fileID: 1856925022}
   inMine: 0
+  resToSpawn: 0
+  mineToSpawn: 0
 --- !u!1 &1049903956
 GameObject:
   m_ObjectHideFlags: 0

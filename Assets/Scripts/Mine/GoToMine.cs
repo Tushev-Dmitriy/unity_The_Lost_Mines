@@ -21,29 +21,21 @@ public class GoToMine : MonoBehaviour
         {
             if (mineReward.resourceInMine != null)
             {
-                resourceController.resArray[numOfMine] = mineReward.ReturnResourceInMine();
+                resourceController.resArray[mineReward.mineToSpawn] = mineReward.ReturnResourceInMine();
                 mineReward.resourceInMine = null;
-                mineReward.firstClick = true;
             }
 
             sceneTransition.number = num;
             sceneTransition.GoInside();
-            
+
+            if (goOut)
+            {
+                mineReward.mineToSpawn = -1;
+            }
+
             if (!goOut)
             {
                 mineReward.SetResource(numOfRes, numOfMine);
-            }
-        }
-    }
-
-    private void DeletePastInfo()
-    {
-        CheckTypeOfResource[] allInfo = resourceInfo.GetComponents<CheckTypeOfResource>();
-        for (int i = 0; i < allInfo.Length; i++)
-        {
-            if (allInfo[i].numOfMine == numOfMine)
-            {
-                Destroy(allInfo[i]);
             }
         }
     }

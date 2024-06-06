@@ -19,12 +19,14 @@ public class MineReward : MonoBehaviour
     public GameObject toolSlot;
     public GameObject resourceInfo;
     public bool inMine;
+    public GameObject[] allMines;
 
-    public bool firstClick = true;
-    private int resToSpawn;
+    public int resToSpawn;
+    public int mineToSpawn;
     public void SetResource(int numOfRes, int numOfMine)
     {
-        resToSpawn = numOfMine;
+        resToSpawn = numOfRes;
+        mineToSpawn = numOfMine;
         if (resourceController.resArray[numOfMine] == null)
         {
             if (itemInMine.transform.childCount > 0)
@@ -59,7 +61,6 @@ public class MineReward : MonoBehaviour
 
             if (itemInfo != null)
             {
-                tempGO.AddComponent<CheckTypeOfResource>();
                 CheckTypeOfResource newItemInfo = tempGO.GetComponent<CheckTypeOfResource>();
 
                 newItemInfo.mineReward = FindAnyObjectByType<MineReward>();
@@ -91,7 +92,7 @@ public class MineReward : MonoBehaviour
         CheckTypeOfResource[] itemInfoArray = resourceInfo.GetComponents<CheckTypeOfResource>();
         for (int i = 0; i < itemInfoArray.Length; i++)
         {
-            if (itemInfoArray[i].numOfMine == resToSpawn)
+            if (itemInfoArray[i].numOfMine == mineToSpawn)
             {
                 return itemInfoArray[i];
             }
@@ -101,7 +102,6 @@ public class MineReward : MonoBehaviour
 
     public void ClearAllDataAboutItem()
     {
-        firstClick = true;
         resourceInMine = null;
     }
 
@@ -113,7 +113,7 @@ public class MineReward : MonoBehaviour
             var itemFullInfo = resourceInMine.GetComponent<CheckTypeOfResource>();
             if (toolInfo.title == "Pickaxe")
             {
-                if (firstClick)
+                if (resourceInMine.GetComponent<CheckTypeOfResource>().xp == 0)
                 {
                     var itemOfRes = resourceInMine.GetComponent<CheckTypeOfResource>().itemInInventory;
                     var itemInfo = itemOfRes.GetComponent<ItemInfo>();
@@ -121,17 +121,15 @@ public class MineReward : MonoBehaviour
                     itemFullInfo.timeToSpawn = itemInfo.timeToSpawn;
                     itemFullInfo.quantity = itemInfo.quantity;
                     itemFullInfo.xp = itemInfo.xp;
-                    firstClick = false;
                 }
 
                 if (itemFullInfo.quantity == 0)
                 {
                     Destroy(resourceInMine);
                     statsController.LevelFill(itemFullInfo.xp);
-                    StartCoroutine(RespawnResource(itemFullInfo.timeToSpawn));
+                    StartCoroutine(RespawnResource(itemFullInfo.timeToSpawn, mineToSpawn));
                     ClearAllDataAboutItem();
                     itemFullInfo.numOfRes = -1;
-                    firstClick = true;
                 }
 
                 slotChecker.AddItemInSlot("r", itemFullInfo.numOfRes);
@@ -141,11 +139,15 @@ public class MineReward : MonoBehaviour
         }
     }
 
-    IEnumerator RespawnResource(float waitToSpawn)
+    IEnumerator RespawnResource(float waitToSpawn, int numOfMine)
     {
-        int newItem = resToSpawn;
         yield return new WaitForSeconds(waitToSpawn);
-        resourceController.resArray[0] = null;
-        SetResource(newItem, 0);
+        resourceController.resArray[mineToSpawn] = null;
+        for (int i = 0; i < allMines.Length; i++)
+        {
+            resToSpawn = allMines[i].GetComponent<GoToMine>().numOfRes;
+        }
+        int newItem = resToSpawn;
+        SetResource(newItem, numOfMine);
     }
 }

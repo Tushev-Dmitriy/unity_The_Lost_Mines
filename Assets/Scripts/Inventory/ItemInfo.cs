@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,6 +16,7 @@ public class ItemInfo : MonoBehaviour
     public int requiredLevel;
     public bool isStackable;
     public int count = 1;
+    public GameObject itemModel;
 
     [Header ("For tools")]
     public int durability;

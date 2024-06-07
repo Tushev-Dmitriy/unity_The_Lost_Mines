@@ -33,6 +33,7 @@ public class StatsController : MonoBehaviour
             for (int i = 0; i < level.Length; i++)
             {
                 level[i].maxValue = stockXp;
+                secondLevelText[i].text = fillAmountNow + "/" + stockXp;
             }
 
             tempLvl++;
@@ -53,14 +54,14 @@ public class StatsController : MonoBehaviour
         for (int i = 0; i < level.Length; i++)
         {
             level[i].value = fillAmountNow;
-            secondLevelText[i].text = level[i].value + "/" + level[i].maxValue;
+            secondLevelText[i].text = fillAmountNow + "/" + stockXp;
         }
     }
 
     private void LevelUp()
     {
         playerLevel++;
-        for (int i = 0; i < levelText.Length;i++)
+        for (int i = 0; i < level.Length; i++)
         {
             levelText[i].text = "Уровень " + playerLevel.ToString();
         }

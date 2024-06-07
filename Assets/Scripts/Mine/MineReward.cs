@@ -1,10 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
-//https://github.com/RockyHong/UnityGetComponentCache cache libary
-//считывание данных в других шахтах
 
 public class MineReward : MonoBehaviour
 {
@@ -142,11 +137,8 @@ public class MineReward : MonoBehaviour
     IEnumerator RespawnResource(float waitToSpawn, int numOfMine)
     {
         yield return new WaitForSeconds(waitToSpawn);
-        resourceController.resArray[mineToSpawn] = null;
-        for (int i = 0; i < allMines.Length; i++)
-        {
-            resToSpawn = allMines[i].GetComponent<GoToMine>().numOfRes;
-        }
+        resourceController.resArray[numOfMine] = null;
+        resToSpawn = allMines[numOfMine].GetComponent<GoToMine>().numOfRes;
         int newItem = resToSpawn;
         SetResource(newItem, numOfMine);
     }

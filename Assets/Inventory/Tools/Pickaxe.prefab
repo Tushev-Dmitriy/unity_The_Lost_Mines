@@ -232,6 +232,8 @@ MonoBehaviour:
   requiredLevel: 1
   isStackable: 0
   count: 1
+  itemModel: {fileID: 6679269353185534646, guid: fefdd7fef58a80546823a54d5864a877,
+    type: 3}
   durability: 15
   timeToSpawn: 0
   quantity: 0

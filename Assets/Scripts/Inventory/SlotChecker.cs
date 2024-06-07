@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,8 +24,23 @@ public class SlotChecker : MonoBehaviour
 
     [Header("Scripts")]
     public StatsController statsController;
+    public GameObject itemInHand;
 
     [HideInInspector] public int itemCount = 0;
+    [HideInInspector] public bool isShowItem = false;
+    private void Update()
+    {
+        if (toolSlot.transform.childCount > 0 && !isShowItem)
+        {
+            GameObject modelInSlot = toolSlot.transform.GetChild(0).gameObject.GetComponent<ItemInfo>().itemModel;
+            GameObject tempGO = Instantiate(modelInSlot, itemInHand.transform);
+            isShowItem = true;
+        } else if (toolSlot.transform.childCount == 0 && isShowItem)
+        {
+            Destroy(itemInHand.transform.GetChild(0).gameObject);
+            isShowItem = false;
+        }
+    }
 
     public void AddItemInSlot(string nameOfItem, int numOfItem)
     {
@@ -54,7 +67,7 @@ public class SlotChecker : MonoBehaviour
                         break;
                 }
 
-                if (itemName == itemInfo.name && itemInfo.count < 64)
+                if (itemName == itemInfo.name && itemInfo.count < 64 && itemInfo.isStackable)
                 {
                     itemInfo.count++;
                     childOfSlot.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = itemInfo.count.ToString();
